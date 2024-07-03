@@ -6,5 +6,5 @@ build-wordle: wordle
 build-game-session: game-session
 	cargo build -p game-session --release
 
-test:
-	make test
+test: build
+	cargo test
