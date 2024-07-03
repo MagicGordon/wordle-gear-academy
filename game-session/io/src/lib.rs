@@ -100,7 +100,9 @@ impl WordleEvent {
     pub fn has_guessed(&self) -> bool {
         match self {
             WordleEvent::GameStarted { .. } => unimplemented!(),
-            WordleEvent::WordChecked { correct_positions, .. } => correct_positions == &vec![0, 1, 2, 3, 4],
+            WordleEvent::WordChecked {
+                correct_positions, ..
+            } => correct_positions == &vec![0, 1, 2, 3, 4],
         }
     }
 }
@@ -143,10 +145,10 @@ pub struct SessionInfo {
 
 impl SessionInfo {
     pub fn is_wait_reply_status(&self) -> bool {
-        match self.session_status {
-            SessionStatus::WaitWordleCheckWordReply | SessionStatus::WaitWordleStartReply => true,
-            _ => false
-        }
+        matches!(
+            self.session_status,
+            SessionStatus::WaitWordleCheckWordReply | SessionStatus::WaitWordleStartReply
+        )
     }
 }
 
@@ -159,7 +161,7 @@ pub struct GameSession {
 impl From<&GameSession> for GameSessionState {
     fn from(game_session: &GameSession) -> Self {
         Self {
-            wordle_program_id: game_session.wordle_program_id.clone(),
+            wordle_program_id: game_session.wordle_program_id,
             game_sessions: game_session
                 .sessions
                 .iter()
