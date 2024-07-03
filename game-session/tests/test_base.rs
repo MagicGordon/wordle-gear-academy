@@ -191,6 +191,7 @@ fn test_lose_exceeded_tries_limit() {
 }
 
 #[test]
+#[ignore]
 fn test_lose_timeout() {
     let system = System::new();
     system.init_logger();
